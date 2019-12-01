@@ -1,0 +1,43 @@
+{% extends "register/index.html" %}
+
+{% block content %}
+<p>Here you can See the book and user details</p>
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>ISBN</td>
+            <td>Mobile</td>
+            <td>Category</td>
+            <td>
+                <a href="{% url 'users_insert' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for users in users_list %}
+        <tr>
+           <td>{{users.username}}</td>
+           <td>{{users.userid}}</td>
+           <td>{{users.mobile}}</td>
+           <td>{{users.category}}</td>
+           <td>
+               <a href="{% url 'users_update' users.id %}" class="btn text-secondary px-0">
+                   <i class="far fa-edit fa-lg">
+
+                   </i>
+               </a>
+               <form action="{% url 'users_delete' users.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn">
+                    <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                </button>
+            </form>
+           </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
